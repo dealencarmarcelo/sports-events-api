@@ -1,7 +1,7 @@
 class Result < ApplicationRecord
   extend Enumerize
 
-  belongs_to :participant, class_name: 'User'
+  belongs_to :user
 
   enumerize :unit, in: %w[meters seconds]
 end

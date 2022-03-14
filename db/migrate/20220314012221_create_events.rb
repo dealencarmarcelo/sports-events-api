@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.string :name
       t.date :start_date
       t.date :end_date
-      t.references :host, index: true, foreign_key: { to_table: :organizations }
+      t.references :organization, index: true, foreign_key: true
       t.references :sport, index: true, foreign_key: true
       t.string :country
 
