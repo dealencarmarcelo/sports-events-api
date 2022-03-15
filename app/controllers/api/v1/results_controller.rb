@@ -21,7 +21,7 @@ class Api::V1::ResultsController < ApplicationController
     params.require(:result)
       .permit(
         :event_id,
-        :participant_id,
+        :user_id,
         :unit,
         :value
       )
