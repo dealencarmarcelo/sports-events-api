@@ -1,2 +1,6 @@
 Style/FrozenStringLiteralComment:
   Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/HashSyntax:
+  Enabled: false 
