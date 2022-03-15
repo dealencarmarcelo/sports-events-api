@@ -21,13 +21,13 @@ FactoryBot.define do
     trait :backward_one_hundred_meters do
       association :sport, :one_hundred_meters
 
-      start_date { Faker::Date.forward(days: 11) }
+      start_date { Faker::Date.backward(days: 11) }
       end_date { Faker::Date.backward(days: 10) }
     end
 
     trait :backward_javelin_throw do
       association :sport, :javelin_throw
-      
+
       start_date { Faker::Date.backward(days: 11) }
       end_date { Faker::Date.backward(days: 10) }
     end
