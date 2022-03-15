@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :organization do
-    name { 'org 1' }
-    organizer_id { 1 }
+    association :user
+
+    name { 'Comitê Olímico Brasileiro' }
+    code { Faker::Lorem.characters(number: 8) }
   end
 end
