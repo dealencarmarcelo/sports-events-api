@@ -29,17 +29,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_14_024610) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
+    t.string "code", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_organizations_on_code"
     t.index ["user_id"], name: "index_organizations_on_user_id"
   end
 
   create_table "results", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "user_id"
-    t.string "unit"
-    t.float "value"
+    t.string "unit", null: false
+    t.float "value", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_results_on_event_id"
@@ -48,9 +50,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_14_024610) do
 
   create_table "sports", force: :cascade do |t|
     t.string "name"
-    t.string "win_condition"
-    t.boolean "has_attempts"
-    t.integer "max_attempts"
+    t.string "win_condition", null: false
+    t.boolean "has_attempts", default: false, null: false
+    t.integer "max_attempts", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,10 +60,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_14_024610) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "username"
-    t.string "role"
+    t.string "role", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["username"], name: "index_users_on_username"
   end
 
   create_table "users_events", force: :cascade do |t|
