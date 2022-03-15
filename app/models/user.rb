@@ -6,5 +6,5 @@ class User < ApplicationRecord
   has_many :users_events
   has_many :events, through: :users_events
 
-  enumerize :role, in: %w[organizer coach participant], predicates: true
+  enumerize :role, in: %w[admin competitor], predicates: true
 end
