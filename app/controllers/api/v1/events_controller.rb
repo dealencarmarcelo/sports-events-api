@@ -1,17 +1,26 @@
+# Events controller
 class Api::V1::EventsController < ApplicationController
+  before_action :fetch_event, only: %w[show]
   def index
-    events = Event.all
+    index_service = Events::Index.call
 
-    render json: events, status: :ok
+    render json: index_service.result,
+           each_serializer: EventsSerializer,
+           adapter: :json,
+           status: :ok
   end
-  
-  def create
-    event = Event.new(events_params)
 
-    if event.save
-      render json: event, status: :created
+  def show
+    render json: @event, serializer: EventsSerializer, status: :ok
+  end
+
+  def create
+    create_service = Events::Create.call(events_params)
+
+    if create_service.success?
+      render json: create_service.result, serializer: EventsSerializer, status: :created
     else
-      render json: { errors: event.errors }, status: :unprocessable_entity
+      render json: { errors: create_service.errors }, status: :unprocessable_entity
     end
   end
 
@@ -19,13 +28,26 @@ class Api::V1::EventsController < ApplicationController
 
   def events_params
     params.require(:event)
-      .permit(
-        :name,
-        :start_date,
-        :end_date,
-        :host_id,
-        :sport_id,
-        :country
-      )
+          .permit(
+            :name,
+            :start_date,
+            :end_date,
+            :organization_id,
+            :sport_id,
+            :country
+          )
+  end
+
+  def fetch_event
+    @event = Event.find_by(id: params[:id])
+    render json: { errors: 'not found' }, status: :not_found unless @event
+  end
+
+  def handle_response(service)
+    if service.success?
+      json_serialized_response(service.result, Users::SignInSerializer, :created)
+    else
+      json_response({ errors: service.errors }, :unprocessable_entity)
+    end
   end
 end

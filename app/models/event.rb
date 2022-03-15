@@ -15,7 +15,7 @@ class Event < ApplicationRecord
   def verify_start_date
     return false unless start_date && end_date
 
-    errors.add(:start_date, 'must be before end_date') unless start_date.before?(end_date)
+    errors.add(:start_date, 'must be before end_date') unless start_date <= end_date
 
     false
   end
