@@ -1,0 +1,54 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+jobs:
+  cucumber:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          node-version: [12.x]
+    services:
+      postgres:
+        image: postgres:11
+        # The postgres container requires the postgres user to be setup with a password in order to start it due to security
+        # reasons
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Entrando na pasta do projeto
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Instalando o Ruby 3.1.0
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.0
+          bundler-cache: true
+      - name: Instalando o ubndler Bundler 2.3.3
+        run: gem install bundler:2.3.3
+      - name: Setup da aplicação Rails com as dependencias
+        env:
+          RAILS_ENV: test
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          bundle install --no-deployment --jobs 4 --retry 3
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          yarn --frozen-lockfile
+      - name: Run rspec
+        run: bundle exec rspec
