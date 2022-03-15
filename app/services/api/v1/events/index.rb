@@ -1,5 +1,5 @@
 # Event list service
-class Events::Index
+class Api::V1::Events::Index
   prepend SimpleCommand
 
   def call

@@ -1,5 +1,5 @@
 # Event serializer
-class EventsSerializer < ActiveModel::Serializer
+class Api::V1::EventsSerializer < ActiveModel::Serializer
   attributes :id, :name, :start_date, :end_date, :country, :title
 
   belongs_to :organization

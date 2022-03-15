@@ -3,23 +3,23 @@ class Api::V1::EventsController < ApplicationController
   before_action :fetch_event, only: %w[show]
 
   def index
-    index_service = Events::Index.call
+    index_service = Api::V1::Events::Index.call
 
     render json: index_service.result,
-           each_serializer: EventsSerializer,
+           each_serializer: Api::V1::EventsSerializer,
            adapter: :json,
            status: :ok
   end
 
   def show
-    render json: @event, serializer: EventsSerializer, status: :ok
+    render json: @event, serializer: Api::V1::EventsSerializer, status: :ok
   end
 
   def create
-    create_service = Events::Create.call(events_params)
+    create_service = Api::V1::Events::Create.call(events_params)
 
     if create_service.success?
-      render json: create_service.result, serializer: EventsSerializer, status: :created
+      render json: create_service.result, serializer: Api::V1::EventsSerializer, status: :created
     else
       render json: { errors: create_service.errors }, status: :unprocessable_entity
     end
