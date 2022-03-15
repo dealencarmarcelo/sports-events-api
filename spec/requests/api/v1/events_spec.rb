@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Events', type: :request do
+RSpec.describe 'Api::V1::Events', type: :request do
   let!(:organization) { create(:organization) }
   let!(:one_hundred_meters_sport) { create(:sport, :one_hundred_meters) }
   let!(:javelin_throw_sport) { create(:sport, :javelin_throw) }

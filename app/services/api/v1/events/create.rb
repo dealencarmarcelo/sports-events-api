@@ -1,5 +1,5 @@
 # Create event service
-class Events::Create
+class Api::V1::Events::Create
   prepend SimpleCommand
 
   def initialize(params)

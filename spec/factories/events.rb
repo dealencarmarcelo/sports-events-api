@@ -4,6 +4,20 @@ FactoryBot.define do
     association :sport
     name { Faker::Lorem.word.capitalize }
 
+    trait :current_one_hundred_meters do
+      sport { association :sport, :one_hundred_meters }
+
+      start_date { Date.today }
+      end_date { Date.tomorrow }
+    end
+
+    trait :current_javelin_throw do
+      sport { association :sport, :javelin_throw }
+
+      start_date { Date.today }
+      end_date { Date.tomorrow }
+    end
+
     trait :forward_one_hundred_meters do
       sport { association :sport, :one_hundred_meters }
 
