@@ -1,6 +1,7 @@
 # Events controller
 class Api::V1::EventsController < ApplicationController
   before_action :fetch_event, only: %w[show]
+
   def index
     index_service = Events::Index.call
 
@@ -41,13 +42,5 @@ class Api::V1::EventsController < ApplicationController
   def fetch_event
     @event = Event.find_by(id: params[:id])
     render json: { errors: 'not found' }, status: :not_found unless @event
-  end
-
-  def handle_response(service)
-    if service.success?
-      json_serialized_response(service.result, Users::SignInSerializer, :created)
-    else
-      json_response({ errors: service.errors }, :unprocessable_entity)
-    end
   end
 end
