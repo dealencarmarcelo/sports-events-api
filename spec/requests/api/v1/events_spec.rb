@@ -70,6 +70,14 @@ RSpec.describe 'Api::V1::Events', type: :request do
 
         expect(response).to be_successful
       end
+
+      it 'renders a error with invalid start_date' do
+        one_hundred_params[:start_date] = nil
+        post '/api/v1/events', params: { event: one_hundred_params }
+
+        expect(response).to_not be_successful
+        expect(json['errors']['event']).to have_key('start_date')
+      end
     end
 
     context 'javelin throw event' do
@@ -77,6 +85,14 @@ RSpec.describe 'Api::V1::Events', type: :request do
         post '/api/v1/events', params: { event: javelin_throw_params }
 
         expect(response).to be_successful
+      end
+
+      it 'renders a error with invalid start_date' do
+        javelin_throw_params[:start_date] = nil
+        post '/api/v1/events', params: { event: javelin_throw_params }
+
+        expect(response).to_not be_successful
+        expect(json['errors']['event']).to have_key('start_date')
       end
     end
   end
@@ -107,5 +123,9 @@ RSpec.describe 'Api::V1::Events', type: :request do
         expect(active_event_ids).to_not include(event.id)
       end
     end
+  end
+
+  describe 'GET /ranking' do
+    context ''
   end
 end
