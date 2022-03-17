@@ -43,9 +43,9 @@ $ docker-compose run web rake db:migrate
 [Documentação - Postman](https://www.postman.com/buxexalg/workspace/lucas-gabriel-s-public-workspace/documentation/12688393-951d48db-812e-4763-8617-3fdb996283b3)
 ## Overview
 ### Requisitos
-* [Ruby on Rails](https://nextjs.org/)
-* [PostgreSQL](https://reactjs.org/)
-* [Docker](https://vuejs.org/)
+* [Ruby on Rails](https://rubyonrails.org/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Docker](https://docker.wpengine.com/)
 
 ### Gems
 ``` ruby
