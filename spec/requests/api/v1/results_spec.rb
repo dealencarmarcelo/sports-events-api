@@ -24,23 +24,31 @@ RSpec.describe 'Api::V1::Results', type: :request do
   }
 
   describe 'GET /index' do
-    it 'renders a successful response' do
-      create(:result, :one_hundred_meters)
-      create(:result, :javelin_throw)
+    it 'renders a successful one_hundred_meters event response' do
+      create(:result, :one_hundred_meters, event_id: one_hundred_meters_event.id)
 
-      get '/api/v1/results'
+      get "/api/v1/events/#{one_hundred_meters_event.id}/results"
 
       expect(response).to be_successful
-      expect(json['results'].size).to eq(Result.count)
+      expect(json.size).to eq(Result.count)
+    end
+
+    it 'renders a successful javelin_throw event response' do
+      create(:result, :javelin_throw, event_id: javelin_throw_event.id)
+
+      get "/api/v1/events/#{javelin_throw_event.id}/results"
+
+      expect(response).to be_successful
+      expect(json.size).to eq(Result.count)
     end
   end
 
   describe 'GET /show' do
     context 'one hundred meters result' do
       it 'renders a successful result response' do
-        result = create(:result, :one_hundred_meters)
+        result = create(:result, :one_hundred_meters, event_id: one_hundred_meters_event.id)
 
-        get "/api/v1/results/#{result.id}"
+        get "/api/v1/events/#{one_hundred_meters_event.id}/results/#{result.id}"
 
         expect(response).to be_successful
         expect(json['id']).to eq(result.id)
@@ -49,9 +57,9 @@ RSpec.describe 'Api::V1::Results', type: :request do
 
     context 'one javelin throw result' do
       it 'renders a successful result response' do
-        result = create(:result, :javelin_throw)
+        result = create(:result, :javelin_throw, event_id: javelin_throw_event.id)
 
-        get "/api/v1/results/#{result.id}"
+        get "/api/v1/events/#{javelin_throw_event.id}/results/#{result.id}"
 
         expect(response).to be_successful
         expect(json['id']).to eq(result.id)
@@ -62,7 +70,7 @@ RSpec.describe 'Api::V1::Results', type: :request do
   describe 'POST /create' do
     context 'one hundred meters result' do
       it 'renders a successful result response' do
-        post '/api/v1/results', params: { result: one_hundred_params }
+        post "/api/v1/events/#{one_hundred_meters_event.id}/results", params: { result: one_hundred_params }
 
         expect(response).to be_successful
       end
@@ -70,7 +78,7 @@ RSpec.describe 'Api::V1::Results', type: :request do
 
     context 'javelin throw result' do
       it 'renders a successful result response' do
-        post '/api/v1/results', params: { result: javelin_throw_params }
+        post "/api/v1/events/#{javelin_throw_event.id}/results", params: { result: javelin_throw_params }
 
         expect(response).to be_successful
       end
