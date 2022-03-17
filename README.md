@@ -56,7 +56,7 @@ gem 'pg' # database
 
 # Utils
 gem 'active_model_serializers' # serializer
-gem 'simple_command' #service object
+gem 'simple_command' # service object
 gem 'enumerize'
 
 # Tests
