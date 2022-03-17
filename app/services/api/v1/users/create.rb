@@ -1,5 +1,5 @@
 # Create result service
-class Api::V1::Results::Create
+class Api::V1::Users::Create
   prepend SimpleCommand
 
   def initialize(params)
