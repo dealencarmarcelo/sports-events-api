@@ -1,0 +1,45 @@
+version: '3'
+networks:
+  development:
+volumes:
+  gem_cache:
+  shared_data:
+services:
+  db:
+    image: postgres:12.5-alpine
+    container_name: db
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - shared_data:/var/shared
+    networks:
+      development:
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5434:5432
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    volumes:
+      - .:/var/app
+      - shared_data:/var/shared
+      - gem_cache:/usr/local/bundle/gems
+    networks:
+      development:
+    ports:
+      - 3000:3000
+    stdin_open: true
+    tty: true
+    env_file: .env.development
+    entrypoint: dev-entrypoint.sh
+    command: ['rails', 's', '-p', '3000', '-b', '0.0.0.0']
+    environment:
+      - RAILS_ENV=development
+      - PGHOST=db
+      - PGUSER=postgres
+    depends_on:
+      - db
