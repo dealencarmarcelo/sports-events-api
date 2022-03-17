@@ -1,6 +1,7 @@
 # Events controller
 class Api::V1::EventsController < ApplicationController
-  before_action :fetch_event, only: %w[show update ranking]
+  before_action :fetch_event, only: %w[show update subscribe competitors ranking]
+  before_action :fetch_user, only: %w[subscribe]
   before_action :set_pagination_params, only: %w[ranking]
 
   def index
@@ -10,7 +11,7 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def show
-    render json: @event, serializer: Api::V1::EventSerializer, status: :ok
+    render json: @event, status: :ok
   end
 
   def create
@@ -23,6 +24,18 @@ class Api::V1::EventsController < ApplicationController
     update_service = Api::V1::Events::Update.call(@event, events_params)
 
     handle_response(update_service, :ok)
+  end
+
+  def subscribe
+    subscribe_service = Api::V1::Events::Subscribe.call(@event, @user)
+
+    handle_response(subscribe_service, :ok)
+  end
+
+  def competitors
+    competitors_list = @event.users
+
+    render json: competitors_list, status: :ok
   end
 
   def ranking
@@ -42,12 +55,18 @@ class Api::V1::EventsController < ApplicationController
             :organization_id,
             :sport_id,
             :country,
-            :active
+            :active,
+            :user_id
           )
   end
 
   def fetch_event
     @event = Event.find_by(id: params[:id])
+    render_error(I18n.t('errors.not_found')) unless @event
+  end
+
+  def fetch_user
+    @user = User.find_by(id: params[:user_id])
     render_error(I18n.t('errors.not_found')) unless @event
   end
 

@@ -69,3 +69,7 @@ pt-BR:
       header:
         one: 'Não foi possível gravar %{model}: 1 erro'
         other: 'Não foi possível gravar %{model}: %{count} erros'
+  activerecord:
+    errors:
+      messages:
+        record_invalid: Registro inválido
