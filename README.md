@@ -40,8 +40,10 @@ $ docker-compose run web rake db:create
 $ docker-compose run web rake db:migrate
 ```
 ### Documentação de endpoints
-[Documentação - Postman](https://www.postman.com/buxexalg/workspace/lucas-gabriel-s-public-workspace/documentation/12688393-951d48db-812e-4763-8617-3fdb996283b3)
+[Documentação - Postman](https://documenter.getpostman.com/view/5947814/UVsPN4V7)
+
 ## Overview
+
 ### Requisitos
 * [Ruby on Rails](https://rubyonrails.org/)
 * [PostgreSQL](https://www.postgresql.org/)
