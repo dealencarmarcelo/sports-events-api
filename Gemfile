@@ -21,6 +21,7 @@ gem 'simple_command'
 # Serializer
 gem 'active_model_serializers', '~> 0.10.0'
 
+gem 'enumerate_it'
 gem 'enumerize'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

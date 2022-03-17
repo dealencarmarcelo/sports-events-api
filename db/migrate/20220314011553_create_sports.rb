@@ -5,7 +5,7 @@ class CreateSports < ActiveRecord::Migration[7.0]
       t.string :win_condition, null: false
 
       t.boolean :has_attempts, null: false, default: false
-      
+
       t.integer :max_attempts, null: false, default: 1
 
       t.timestamps

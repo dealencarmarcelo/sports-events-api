@@ -1,18 +1,14 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
   namespace :api do
     namespace :v1 do
-      resources :events
-      resources :results
-      resources :users do
+      resources :events do
+        resources :results
         member do
-          get :results
-          get :events
+          get :ranking
         end
       end
+
+      resources :users
     end
   end
 end

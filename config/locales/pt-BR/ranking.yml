@@ -1,0 +1,5 @@
+pt-BR:
+  enumerations:
+    ranking:
+      final: 'Resultado final'
+      partial: 'Resultado parcial'

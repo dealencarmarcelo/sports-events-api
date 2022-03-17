@@ -8,15 +8,10 @@ class Event < ApplicationRecord
 
   validates_presence_of :name, :start_date, :end_date
 
-  validate :verify_start_date
+  validates_comparison_of :end_date, greater_than: :start_date
+  validates_comparison_of :end_date, greater_than: Date.yesterday
 
-  private
+  scope :active, -> { where(active: true) }
+  scope :active_by_dates, -> { where('active IS TRUE AND ? BETWEEN start_date AND end_date', Date.today) }
 
-  def verify_start_date
-    return false unless start_date && end_date
-
-    errors.add(:start_date, 'must be before end_date') unless start_date <= end_date
-
-    false
-  end
 end

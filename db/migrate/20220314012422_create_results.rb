@@ -5,7 +5,7 @@ class CreateResults < ActiveRecord::Migration[7.0]
       t.references :user, index: true, foreign_key: true
 
       t.string :unit, null: false
-      
+
       t.float :value, null: false
 
       t.timestamps
