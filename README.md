@@ -19,11 +19,11 @@ API responsável por gerenciar competições do COB (Comitê Olímpico Brasileir
 ## Getting Started
 Para começar a usar a Sports Events API são necessários alguns informações, dependendo de como você irá utilizar. São elas:
 
-Primeiro de tudo, clone o repositório:
+Primeiro de tudo, clonar o repositório:
 ```sh
 git clone https://github.com/dealencarmarcelo/sports-events-api.git
 ```
-Com isso, para rodar:
+Com isso, rodar em ambiente local:
 ### Ambiente local
 ```sh
 $ bundle install
@@ -31,7 +31,7 @@ $ rake db:create && rake db:migrate
 $ rails s
 ```
 
-Mas se preferir utilizar o Docker:
+Ou se preferir, utilizar o Docker:
 ### Docker
 ```sh
 $ docker-compose build
