@@ -27,20 +27,20 @@ RSpec.describe 'Api::V1::Events', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      create(:event, :forward_one_hundred_meters)
-      create(:event, :forward_javelin_throw)
+      create(:event, :current_one_hundred_meters)
+      create(:event, :current_javelin_throw)
 
       get '/api/v1/events'
 
       expect(response).to be_successful
-      expect(json['events'].size).to eq(Event.count)
+      expect(json.size).to eq(Event.count)
     end
   end
 
   describe 'GET /show' do
     context 'one hundred meters event' do
       it 'renders a successful event response' do
-        event = create(:event, :forward_one_hundred_meters)
+        event = create(:event, :current_one_hundred_meters)
 
         get "/api/v1/events/#{event.id}"
 
@@ -52,7 +52,7 @@ RSpec.describe 'Api::V1::Events', type: :request do
 
     context 'one javelin throw event' do
       it 'renders a successful event response' do
-        event = create(:event, :forward_javelin_throw)
+        event = create(:event, :current_javelin_throw)
 
         get "/api/v1/events/#{event.id}"
 
@@ -77,6 +77,34 @@ RSpec.describe 'Api::V1::Events', type: :request do
         post '/api/v1/events', params: { event: javelin_throw_params }
 
         expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'UPDATE /update' do
+    context 'one hundred meters event' do
+      it 'renders a successful event response' do
+        event = create(:event, :current_one_hundred_meters)
+        put "/api/v1/events/#{event.id}", params: { event: { active: false } }
+
+        expect(response).to be_successful
+        expect(json['active']).to be false
+
+        active_event_ids = Event.active.ids
+        expect(active_event_ids).to_not include(event.id)
+      end
+    end
+
+    context 'javelin throw event' do
+      it 'renders a successful event response' do
+        event = create(:event, :current_javelin_throw)
+        put "/api/v1/events/#{event.id}", params: { event: { active: false } }
+
+        expect(response).to be_successful
+        expect(json['active']).to be false
+
+        active_event_ids = Event.active.ids
+        expect(active_event_ids).to_not include(event.id)
       end
     end
   end

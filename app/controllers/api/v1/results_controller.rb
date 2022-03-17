@@ -1,28 +1,22 @@
 # Results controller
 class Api::V1::ResultsController < ApplicationController
+  before_action :fetch_event, only: %w[index create]
   before_action :fetch_result, only: %w[show]
 
   def index
-    index_service = Api::V1::Results::Index.call
+    index_service = Api::V1::Results::Index.call(@event)
 
-    render json: index_service.result,
-           each_serializer: Api::V1::ResultsSerializer,
-           adapter: :json,
-           status: :ok
+    handle_response(index_service, :ok)
   end
 
   def show
-    render json: @result, serializer: Api::V1::ResultsSerializer, status: :ok
+    render json: @result, status: :ok
   end
 
   def create
-    create_service = Api::V1::Results::Create.call(results_params)
+    create_service = Api::V1::Results::Create.call(@event, results_params)
 
-    if create_service.success?
-      render json: create_service.result, serializer: Api::V1::ResultsSerializer, status: :created
-    else
-      render json: { errors: create_service.errors }, status: :unprocessable_entity
-    end
+    handle_response(create_service, :created)
   end
 
   private
@@ -39,6 +33,19 @@ class Api::V1::ResultsController < ApplicationController
 
   def fetch_result
     @result = Result.find_by(id: params[:id])
-    render json: { errors: 'not found' }, status: :not_found unless @result
+    render_error(I18n.t('errors.not_found')) unless @result
+  end
+
+  def fetch_event
+    @event = Event.active_by_dates.find_by(id: params[:event_id])
+    render_error(I18n.t('errors.inactive_event')) unless @event
+  end
+
+  def handle_response(service, status)
+    if service.success?
+      render_response(service.result, status)
+    else
+      render_unprocessable_entity_error(service.errors)
+    end
   end
 end

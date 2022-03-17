@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    medal:
+      gold: 'Medalhista de ouro'
+      silver: 'Medalhista de prata'
+      bronze: 'Medalhista de bronze'

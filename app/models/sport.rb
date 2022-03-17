@@ -3,5 +3,5 @@ class Sport < ApplicationRecord
 
   has_many :events
 
-  enumerize :win_condition, in: %w[greater shorter], predicates: true
+  enumerize :win_condition, in: %w[desc asc], predicates: true
 end

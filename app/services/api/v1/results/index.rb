@@ -2,6 +2,10 @@
 class Api::V1::Results::Index
   prepend SimpleCommand
 
+  def initialize(event)
+    @event = event
+  end
+
   def call
     fetch_results
   end
@@ -9,6 +13,6 @@ class Api::V1::Results::Index
   private
 
   def fetch_results
-    Result.order(value: :asc)
+    @event.results.order(value: :asc)
   end
 end

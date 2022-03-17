@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_14_024610) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_17_034724) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_14_024610) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: false
     t.index ["organization_id"], name: "index_events_on_organization_id"
     t.index ["sport_id"], name: "index_events_on_sport_id"
   end
@@ -51,7 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_14_024610) do
   create_table "sports", force: :cascade do |t|
     t.string "name"
     t.string "win_condition", null: false
-    t.boolean "has_attempts", default: false, null: false
     t.integer "max_attempts", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,6 +64,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_14_024610) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "age"
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username"
   end
