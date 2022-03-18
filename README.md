@@ -40,16 +40,21 @@ $ docker-compose run web rake db:create
 $ docker-compose run web rake db:migrate
 ```
 ### Documentação de endpoints
-[Documentação - Postman](https://documenter.getpostman.com/view/5947814/UVsPN4V7)
+> **Nota:** Collection zipada disponível para download, caso desejem manipular.
+
+- [Documentação - Postman](https://documenter.getpostman.com/view/5947814/UVsPN4V7)
+- [Estante Virtual - Sports API.postman_collection.zip](https://github.com/dealencarmarcelo/sports-events-api/files/8299944/Estante.Virtual.-.Sports.API.postman_collection.zip)
 
 ## Overview
 
 ### Requisitos
+*Principais requisitos*
 * [Ruby on Rails](https://rubyonrails.org/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [Docker](https://docker.wpengine.com/)
 
 ### Gems
+*Principais gems*
 ``` ruby
 ruby '3.1.0'
 
@@ -68,6 +73,7 @@ gem 'rspec-rails'
 gem 'shoulda-matchers'
 ```
 ### Modelos
+*Principais modelos*
 * Competições - `events`
 * Resultados - `results`
 * Modalidades - `sports`
@@ -75,6 +81,7 @@ gem 'shoulda-matchers'
 * Organizações - `organizations`
 
 ### Funcionalidades
+*Principais funcionalidades*
 - [x] **Competições**
   - [x] Listar competições
   - [x] Visualizar uma competição
@@ -90,6 +97,7 @@ gem 'shoulda-matchers'
   - [x] Visualizar um resultado
 
 ### Validações
+*Principais destaques*
 - [x] **Competições**
   - [x] Podem estar ativas ou encerradas, por status ou por período (data de início e fim)
   - [x] Não pode receber resultados caso esteja encerrada
@@ -105,3 +113,4 @@ gem 'shoulda-matchers'
 > **Nota**: arquivo gerado no dia *16/03/2022*
 
 ![Captura de tela de 2022-03-17 19-09-16](https://user-images.githubusercontent.com/24737532/158902759-df5f258d-4f1e-43ae-9484-d300f6e4a283.png)
+
