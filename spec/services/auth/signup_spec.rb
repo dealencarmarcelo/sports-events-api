@@ -38,7 +38,7 @@ describe Api::V1::Auth::SignupService do
         }
       end
       it 'fails' do
-        expect{ context }.to raise_error ActiveRecord::RecordInvalid
+        expect { context }.to raise_error ActiveRecord::RecordInvalid
       end
     end
   end

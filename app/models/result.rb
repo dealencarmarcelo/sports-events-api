@@ -16,7 +16,7 @@ class Result < ApplicationRecord
 
     return if current_attempts < sport&.max_attempts
 
-    errors.add(:message, 'max attempts')
+    errors.add(:message, I18n.t('errors.messages.max_attempts'))
 
     false
   end
@@ -24,7 +24,7 @@ class Result < ApplicationRecord
   def validate_subscription
     return if event.user_ids.include?(user_id)
 
-    errors.add(:message, 'user unsubscribed')
+    errors.add(:message, I18n.t('errors.messages.not_subscribed'))
 
     false
   end

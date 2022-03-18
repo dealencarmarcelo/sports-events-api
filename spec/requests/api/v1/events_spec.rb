@@ -65,6 +65,15 @@ RSpec.describe 'Api::V1::Events', type: :request do
         expect(json['name']).to eq(event.name)
       end
     end
+
+    context 'with invalid event_id' do
+      it 'renders a error' do
+        get '/api/v1/events/0', headers: authenticate_user(@current_user)
+
+        expect(json['code']).to eq('not_found')
+        expect(json['status']).to eq(404)
+      end
+    end
   end
 
   describe 'POST /create' do
@@ -130,6 +139,58 @@ RSpec.describe 'Api::V1::Events', type: :request do
   end
 
   describe 'GET /ranking' do
-    context ''
+    context 'one hundred meters event' do
+      it 'renders a successful event list response' do
+        first_competitor = create(:user, :competitor)
+        second_competitor = create(:user, :competitor)
+
+        event = create(:event, :current_one_hundred_meters)
+
+        create(:users_event, user_id: first_competitor.id, event_id: event.id)
+        create(:users_event, user_id: second_competitor.id, event_id: event.id)
+
+        create(:result, :one_hundred_meters, event_id: event.id, user_id: first_competitor.id)
+        create(:result, :one_hundred_meters, event_id: event.id, user_id: second_competitor.id)
+
+        get "/api/v1/events/#{event.id}/ranking", headers: authenticate_user(@current_user)
+
+        expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'POST /subscribe' do
+    context 'one hundred meters event' do
+      it 'renders a successful event list response' do
+        competitor = create(:user, :competitor)
+        event = create(:event, :current_one_hundred_meters)
+
+        post "/api/v1/events/#{event.id}/subscribe", params: { user_id: competitor.id },
+                                                     headers: authenticate_user(@current_user)
+
+        expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'GET /competitors' do
+    context 'one hundred meters event' do
+      it 'renders a successful competitors list response' do
+        first_competitor = create(:user, :competitor)
+        second_competitor = create(:user, :competitor)
+
+        event = create(:event, :current_one_hundred_meters)
+
+        create(:users_event, user_id: first_competitor.id, event_id: event.id)
+        create(:users_event, user_id: second_competitor.id, event_id: event.id)
+
+        create(:result, :one_hundred_meters, event_id: event.id, user_id: first_competitor.id)
+        create(:result, :one_hundred_meters, event_id: event.id, user_id: second_competitor.id)
+
+        get "/api/v1/events/#{event.id}/competitors", headers: authenticate_user(@current_user)
+
+        expect(response).to be_successful
+      end
+    end
   end
 end

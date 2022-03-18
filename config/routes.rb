@@ -2,11 +2,22 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :events do
-        resources :results, only: %w[index show create]
+        resources :results
+
+        member do
+          post 'subscribe'
+          get 'competitors'
+        end
+
         member do
           get :ranking
-          post :subscribe
-          get :competitors
+        end
+      end
+
+      resources :auth do
+        collection do
+          post :signin
+          post :signup
         end
       end
 

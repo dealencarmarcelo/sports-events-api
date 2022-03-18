@@ -33,15 +33,15 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def competitors
-    competitors_list = @event.users
+    competitors_list = @event.users.includes(:results)
 
-    render json: competitors_list, status: :ok
+    render json: competitors_list, each_serializer: Api::V1::CompetitorSerializer, event_id: @event.id, status: :ok
   end
 
   def ranking
     ranking_service = Api::V1::Events::Ranking.call(@event, @page, @per_page)
 
-    handle_response(ranking_service, :ok)
+    handle_serialized_response(ranking_service, Api::V1::RankingSerializer, :ok)
   end
 
   private
@@ -78,6 +78,14 @@ class Api::V1::EventsController < ApplicationController
   def handle_response(service, status)
     if service.success?
       render_response(service.result, status)
+    else
+      render_unprocessable_entity_error(service.errors)
+    end
+  end
+
+  def handle_serialized_response(service, serializer, status)
+    if service.success?
+      render_serialized_response(service.result, serializer, status)
     else
       render_unprocessable_entity_error(service.errors)
     end
