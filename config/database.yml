@@ -4,13 +4,22 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: postgres
+  password: postgres
+  host: pg
 
 development:
   <<: *default
+  username: postgres
+  password: postgres
+  host: pg
   database: sports_events_api_development
 
 test:
   <<: *default
+  username: postgres
+  password: postgres
+  host: pg
   database: sports_events_api_test
 
 production:

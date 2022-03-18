@@ -1,5 +1,5 @@
 # Results controller
-class Api::V1::ResultsController < ApplicationController
+class Api::V1::ResultsController < Api::V1::BaseController
   before_action :fetch_event, only: %w[index create]
   before_action :fetch_result, only: %w[show]
 

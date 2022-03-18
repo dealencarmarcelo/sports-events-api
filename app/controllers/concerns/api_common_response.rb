@@ -6,6 +6,10 @@ module ApiCommonResponse
     render json: data, status: status
   end
 
+  def render_serialized_response(data, serializer, status = :ok)
+    render json: data, each_serializer: serializer, status: status
+  end
+
   def render_unprocessable_entity_error(resource = nil)
     data = verify_errors(resource)
     render json: data, status: :unprocessable_entity
@@ -13,12 +17,6 @@ module ApiCommonResponse
 
   def render_error(error)
     render json: error
-  end
-
-  def render_json_message(hash, status, options = {})
-    hash = hash.merge(meta: @meta).merge(options)
-
-    render json: hash, status: status
   end
 
   private

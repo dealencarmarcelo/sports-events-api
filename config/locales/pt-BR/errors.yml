@@ -6,7 +6,7 @@ pt-BR:
       status: 500
     invalid_token:
       code: 'invalid_token'
-      message: "Token inválido"
+      message: "Token inválido, por favor, faça login para continuar"
       status: 401
     invalid_credentials:
       code: 'invalid_credentials'
@@ -33,6 +33,18 @@ pt-BR:
       message: "Esse evento já foi encerrado"
       status: 422
     format: "%{attribute} %{message}"
+    already_registered:
+      code: 'already_registered'
+      message: "Competidor já inscrito"
+      status: 422
+    max_attemps:
+      code: 'max_attemps'
+      message: "o competidor já atingiu o máximo de tentativas"
+      code: 422
+    not_subscribed:
+      code: 'not_subscribed'
+      message: "o competidor já atingiu o máximo de tentativas"
+      code: 422
     messages:
       accepted: deve ser aceito
       blank: não pode ficar em branco
@@ -55,6 +67,8 @@ pt-BR:
       present: deve ficar em branco
       required: é obrigatório(a)
       taken: já está em uso
+      not_subscribed: o competidor não está inscrito nessa competição
+      max_attempts: o competidor já atingiu o máximo de tentativas
       too_long:
         one: 'é muito longo (máximo: 1 caracter)'
         other: 'é muito longo (máximo: %{count} caracteres)'
@@ -69,3 +83,7 @@ pt-BR:
       header:
         one: 'Não foi possível gravar %{model}: 1 erro'
         other: 'Não foi possível gravar %{model}: %{count} erros'
+  activerecord:
+    errors:
+      messages:
+        record_invalid: Registro inválido

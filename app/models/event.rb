@@ -14,4 +14,9 @@ class Event < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :active_by_dates, -> { where('active IS TRUE AND ? BETWEEN start_date AND end_date', Date.today) }
 
+  def subscribe_if_not_exists(subscriber_id)
+    raise ErrorHandler, :already_registered if users.where(id: subscriber_id).any?
+
+    users_events.create(user_id: subscriber_id)
+  end
 end
