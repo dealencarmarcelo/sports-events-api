@@ -64,6 +64,10 @@ ruby '3.1.0'
 gem 'rails', '7.0.1'
 gem 'pg' # database
 
+# Auth
+gem 'bcrypt'
+gem 'jwt'
+
 # Utils
 gem 'active_model_serializers' # serializer
 gem 'simple_command' # service object
