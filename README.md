@@ -89,12 +89,16 @@ gem 'shoulda-matchers'
 
 ### Funcionalidades
 *Principais funcionalidades*
+- [x] **Autenticação**
+    - [x] Registrar um usuário
+    - [x] Realizar login com um usuário 
 - [x] **Competições**
   - [x] Listar competições
   - [x] Visualizar uma competição
   - [x] Criar uma competição
   - [x] Editar uma competição
-  - [x] Inscrever atletas (usuário)
+  - [x] Inscrever atletas
+    - [x] Apenas usuários do tipo *competitor* podem ser inscritos 
   - [x] Listar atletas inscritos
   - [x] Visualizar ranking da competição
 - [x] **Resultados**
