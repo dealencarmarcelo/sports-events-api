@@ -67,7 +67,7 @@ class Api::V1::EventsController < ApplicationController
 
   def fetch_user
     @user = User.find_by(id: params[:user_id])
-    render_error(I18n.t('errors.not_found')) unless @event
+    render_error(I18n.t('errors.not_found')) unless @user
   end
 
   def set_pagination_params
