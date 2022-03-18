@@ -14,6 +14,6 @@ class Api::V1::Events::Subscribe
   private
 
   def subscribe_user
-    @event.subscribe_if_not_exists(@user.id)
+    @event.subscribe_if_not_exists(@user.id, @user.role)
   end
 end

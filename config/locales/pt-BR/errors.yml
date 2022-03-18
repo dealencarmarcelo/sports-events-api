@@ -37,13 +37,17 @@ pt-BR:
       code: 'already_registered'
       message: "Competidor já inscrito"
       status: 422
+    incorrect_subscription_role:
+      code: 'incorrect_subscription_role'
+      message: "Apenas usuários do tipo competidor podem ser inscritos"
+      status: 422
     max_attemps:
       code: 'max_attemps'
-      message: "o competidor já atingiu o máximo de tentativas"
+      message: "O competidor já atingiu o máximo de tentativas"
       code: 422
     not_subscribed:
       code: 'not_subscribed'
-      message: "o competidor já atingiu o máximo de tentativas"
+      message: "O competidor já atingiu o máximo de tentativas"
       code: 422
     messages:
       accepted: deve ser aceito

@@ -14,8 +14,9 @@ class Event < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :active_by_dates, -> { where('active IS TRUE AND ? BETWEEN start_date AND end_date', Date.today) }
 
-  def subscribe_if_not_exists(subscriber_id)
+  def subscribe_if_not_exists(subscriber_id, user_role)
     raise ErrorHandler, :already_registered if users.where(id: subscriber_id).any?
+    raise ErrorHandler, :incorrect_subscription_role unless user_role.competitor?
 
     users_events.create(user_id: subscriber_id)
   end
