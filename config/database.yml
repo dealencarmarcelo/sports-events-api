@@ -7,10 +7,16 @@ default: &default
 
 development:
   <<: *default
+  username: postgres
+  password: postgres
+  host: pg
   database: sports_events_api_development
 
 test:
   <<: *default
+  username: postgres
+  password: postgres
+  host: pg
   database: sports_events_api_test
 
 production:

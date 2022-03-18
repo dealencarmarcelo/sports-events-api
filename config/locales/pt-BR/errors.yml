@@ -6,7 +6,7 @@ pt-BR:
       status: 500
     invalid_token:
       code: 'invalid_token'
-      message: "Token inválido"
+      message: "Token inválido, por favor, faça login para continuar"
       status: 401
     invalid_credentials:
       code: 'invalid_credentials'

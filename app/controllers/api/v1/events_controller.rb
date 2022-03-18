@@ -1,5 +1,5 @@
 # Events controller
-class Api::V1::EventsController < ApplicationController
+class Api::V1::EventsController < Api::V1::BaseController
   before_action :fetch_event, only: %w[show update ranking]
   before_action :set_pagination_params, only: %w[ranking]
 

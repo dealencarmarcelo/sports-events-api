@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Events', type: :request do
+  before do
+    @current_user = create(:user, :admin)
+  end
+
   let!(:organization) { create(:organization) }
   let!(:one_hundred_meters_sport) { create(:sport, :one_hundred_meters) }
   let!(:javelin_throw_sport) { create(:sport, :javelin_throw) }
@@ -30,7 +34,7 @@ RSpec.describe 'Api::V1::Events', type: :request do
       create(:event, :current_one_hundred_meters)
       create(:event, :current_javelin_throw)
 
-      get '/api/v1/events'
+      get '/api/v1/events', headers: authenticate_user(@current_user)
 
       expect(response).to be_successful
       expect(json.size).to eq(Event.count)
@@ -42,7 +46,7 @@ RSpec.describe 'Api::V1::Events', type: :request do
       it 'renders a successful event response' do
         event = create(:event, :current_one_hundred_meters)
 
-        get "/api/v1/events/#{event.id}"
+        get "/api/v1/events/#{event.id}", headers: authenticate_user(@current_user)
 
         expect(response).to be_successful
         expect(json['id']).to eq(event.id)
@@ -54,7 +58,7 @@ RSpec.describe 'Api::V1::Events', type: :request do
       it 'renders a successful event response' do
         event = create(:event, :current_javelin_throw)
 
-        get "/api/v1/events/#{event.id}"
+        get "/api/v1/events/#{event.id}", headers: authenticate_user(@current_user)
 
         expect(response).to be_successful
         expect(json['id']).to eq(event.id)
@@ -66,7 +70,7 @@ RSpec.describe 'Api::V1::Events', type: :request do
   describe 'POST /create' do
     context 'one hundred meters event' do
       it 'renders a successful event response' do
-        post '/api/v1/events', params: { event: one_hundred_params }
+        post '/api/v1/events', params: { event: one_hundred_params }, headers: authenticate_user(@current_user)
 
         expect(response).to be_successful
       end
@@ -74,7 +78,7 @@ RSpec.describe 'Api::V1::Events', type: :request do
 
     context 'javelin throw event' do
       it 'renders a successful event response' do
-        post '/api/v1/events', params: { event: javelin_throw_params }
+        post '/api/v1/events', params: { event: javelin_throw_params }, headers: authenticate_user(@current_user)
 
         expect(response).to be_successful
       end
@@ -85,7 +89,7 @@ RSpec.describe 'Api::V1::Events', type: :request do
     context 'one hundred meters event' do
       it 'renders a successful event response' do
         event = create(:event, :current_one_hundred_meters)
-        put "/api/v1/events/#{event.id}", params: { event: { active: false } }
+        put "/api/v1/events/#{event.id}", params: { event: { active: false } }, headers: authenticate_user(@current_user)
 
         expect(response).to be_successful
         expect(json['active']).to be false
@@ -98,7 +102,7 @@ RSpec.describe 'Api::V1::Events', type: :request do
     context 'javelin throw event' do
       it 'renders a successful event response' do
         event = create(:event, :current_javelin_throw)
-        put "/api/v1/events/#{event.id}", params: { event: { active: false } }
+        put "/api/v1/events/#{event.id}", params: { event: { active: false } }, headers: authenticate_user(@current_user)
 
         expect(response).to be_successful
         expect(json['active']).to be false

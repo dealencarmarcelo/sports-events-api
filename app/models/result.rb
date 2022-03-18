@@ -8,6 +8,7 @@ class Result < ApplicationRecord
   has_one :sport, through: :event
 
   before_validation :validate_attempts
+  before_validation :validate_subscription
   before_validation :normalize_value
 
   def validate_attempts
@@ -15,7 +16,15 @@ class Result < ApplicationRecord
 
     return if current_attempts < sport&.max_attempts
 
-    errors.add(:result, 'max attempts')
+    errors.add(:message, 'max attempts')
+
+    false
+  end
+
+  def validate_subscription
+    return if event.user_ids.include?(user_id)
+
+    errors.add(:message, 'user unsubscribed')
 
     false
   end

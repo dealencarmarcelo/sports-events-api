@@ -15,12 +15,6 @@ module ApiCommonResponse
     render json: error
   end
 
-  def render_json_message(hash, status, options = {})
-    hash = hash.merge(meta: @meta).merge(options)
-
-    render json: hash, status: status
-  end
-
   private
 
   def verify_errors(resource)

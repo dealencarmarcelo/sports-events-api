@@ -15,7 +15,7 @@ class Api::V1::Events::Create
   def create_event
     event = Event.new(@params)
 
-    errors.add(event.errors) unless event.save
+    errors.add(:event, event.errors) unless event.save
 
     event
   end
