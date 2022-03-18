@@ -27,7 +27,7 @@ Com isso, rodar em ambiente local:
 ### Ambiente local
 ```sh
 $ bundle install
-$ rake db:create && rake db:migrate
+$ rake db:create && rake db:migrate && rake db:seed
 $ rails s
 ```
 
@@ -38,7 +38,10 @@ $ docker-compose build
 $ docker-compose up
 $ docker-compose run web rake db:create
 $ docker-compose run web rake db:migrate
+$ docker-compose run web rake db:seed
 ```
+> **Nota:** O seed popula a Organização (COB), as modalidades e cria um usuário admin, pertencente ao COB
+
 ### Documentação de endpoints
 > **Nota:** Collection zipada disponível para download, caso desejem manipular.
 
