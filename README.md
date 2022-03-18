@@ -110,7 +110,8 @@ gem 'shoulda-matchers'
     - [x] Seu ranking é ordenado do **maior resultado para o menor**
 
 ### Cobertura atual de testes
-> **Nota**: arquivo gerado no dia *16/03/2022*
+> **Nota**: arquivo gerado no dia *18/03/2022*
 
-![Captura de tela de 2022-03-17 19-09-16](https://user-images.githubusercontent.com/24737532/158902759-df5f258d-4f1e-43ae-9484-d300f6e4a283.png)
+![Coverage](https://user-images.githubusercontent.com/24737532/158939100-85d773a4-8d83-4c5b-8c32-775c695536ae.png)
+
 
